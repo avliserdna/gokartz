@@ -6,13 +6,13 @@ class User(db.Model, UserMixin):
   __tablename__ = 'users'
 
   if environment == "production":
-    __table_args_ = {'schema': SCHEMA}
+    __table_args__ = {'schema': SCHEMA}
 
   id = db.Column(db.Integer, primary_key= True)
   username = db.Column(db.String(40), nullable=False, unique=True)
   hashed_password = db.Column(db.String(255), nullable=False)
   email = db.Column(db.String(255), nullable=False, unique=True)
-  phone_number = db.Column(db.Number(10), nullable=False, unique=True)
+  phone_number = db.Column(db.String(10), nullable=False, unique=True)
   profile_pic = db.Column(db.String(255), nullable=True)
   address = db.Column(db.String(255), nullable = True )
   birthday = db.Column(db.DateTime, nullable = False)
@@ -28,6 +28,9 @@ class User(db.Model, UserMixin):
 
   def check_password(self, password):
     return check_password_hash(self.password, password)
+
+  def check_phone_number(sel, phone_number):
+     return phone_number.isnumeric()
 
   def to_dict(self):
      return {
