@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
   address = db.Column(db.String(255), nullable = True )
   birthday = db.Column(db.DateTime, nullable = False)
 
+
   @property
   def password(self):
       return self.hashed_password
@@ -34,6 +35,6 @@ class User(db.Model, UserMixin):
          'username': self.username,
          'email': self.email,
          'profile_pic' : self.profile_pic,
-         'author': self.author,
-         'admin': self.admin
+         'address' : self.address,
+         'birthday' : self.birthday
      }
