@@ -1,10 +1,10 @@
 from app.models import db, User, environment, SCHEMA
-
+import datetime
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', profile_pic='image', address="46 Arrowhead Dr.Waterford, MI 48329", birthday="05/31/2004")
+        username='Demo', email='demo@aa.io', password='password', profile_pic='image', address="46 Arrowhead Dr.Waterford, MI 48329", birthday=datetime.datetime(2004, 5, 31), phone_number="8309855822")
     db.session.add(demo)
     db.session.commit()
 
