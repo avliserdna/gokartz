@@ -25,6 +25,7 @@ python-editor = "*"
 greenlet = "*"
 mako = "*"
 requests = "*"
+faker = "*"
 
 [dev-packages]
 

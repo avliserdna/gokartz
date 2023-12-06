@@ -10,6 +10,7 @@ class Role(db.Model):
   name = db.Column(db.String(12), nullable = False, unique = True)
   description = db.Column(db.String(255), nullable=False)
 
+  specialist_role = db.relationship('Specialist', back_populates='role_specialist', cascade='all, delete')
   def to_dict(self):
      return {
          'id': self.id,

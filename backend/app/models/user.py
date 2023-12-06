@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
   address = db.Column(db.String(255), nullable = True )
   birthday = db.Column(db.DateTime, nullable = False)
 
-
+  specialist_user = db.relationship('Specialist', back_populates='user_specialist', cascade='all, delete')
   @property
   def password(self):
       return self.hashed_password

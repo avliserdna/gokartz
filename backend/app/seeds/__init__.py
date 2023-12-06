@@ -1,7 +1,7 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
 from .roles import seed_roles, undo_roles
-
+from .specialists import seed_specialists, undo_specialists
 
 from app.models.db import db, environment, SCHEMA
 
@@ -20,8 +20,10 @@ def seed():
         # Make sure to add all your other model's undo functions below
         undo_users()
         undo_roles()
+        undo_specialists()
     seed_users()
     seed_roles()
+    seed_specialists()
     # Add other seed functions here
 
 
@@ -30,4 +32,5 @@ def seed():
 def undo():
     undo_users()
     undo_roles()
+    undo_specialists
     # Add other undo functions here
