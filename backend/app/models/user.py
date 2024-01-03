@@ -11,6 +11,9 @@ class User(db.Model, UserMixin):
   id = db.Column(db.Integer, primary_key= True)
   username = db.Column(db.String(40), nullable=False, unique=True)
   hashed_password = db.Column(db.String(255), nullable=False)
+  first_name = db.Column(db.String(25), nullable=False)
+  last_name = db.Column(db.String(25), nullable=False)
+  middle_initial = db.Column(db.String(1), nullable=True)
   email = db.Column(db.String(255), nullable=False, unique=True)
   phone_number = db.Column(db.String(10), nullable=False, unique=True)
   profile_pic = db.Column(db.String(255), nullable=True)
@@ -18,6 +21,7 @@ class User(db.Model, UserMixin):
   birthday = db.Column(db.DateTime, nullable = False)
 
   specialist_user = db.relationship('Specialist', back_populates='user_specialist', cascade='all, delete')
+  transaction_user = db.relationship('Transaction', back_populates="user_transaction", cascade='all, delete')
   @property
   def password(self):
       return self.hashed_password

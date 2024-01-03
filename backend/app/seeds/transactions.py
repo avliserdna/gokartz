@@ -1,15 +1,16 @@
-from app.models import db, Specialist, environment, SCHEMA
+from app.models import db, Transaction, environment, SCHEMA
 from sqlalchemy.sql import text
-import datetime
+from datetime import datetime
 from faker import Faker
 from faker.providers import date_time
 
 fake = Faker()
 fake.add_provider(date_time)
 # Adds a demo user, you can add other users here if you want
-def seed_specialists():
-    demo = Specialist(
-      user_id=1, role_id=3, biography=fake.text(), portfolio=fake.text())
+def seed_transactions():
+    demo = Transaction(
+      user_id=1, specialist_id=1, price=32.14, service=fake.text(), date=datetime.now())
+    print(demo)
     db.session.add(demo)
     db.session.commit()
 
@@ -20,10 +21,10 @@ def seed_specialists():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_specialists():
+def undo_transactions():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.specialists RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.transactions RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM specialists"))
+        db.session.execute(text("DELETE FROM transactions"))
 
     db.session.commit()

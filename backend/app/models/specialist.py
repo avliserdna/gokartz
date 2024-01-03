@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-from sqlalchemy.dialects.postgresql import ARRAY
+# from sqlalchemy.dialects.postgresql import ARRAY
 
 class Specialist(db.Model):
   __tablename__ = 'specialists'
@@ -16,7 +16,7 @@ class Specialist(db.Model):
 
   role_specialist = db.relationship('Role', back_populates='specialist_role')
   user_specialist = db.relationship('User', back_populates='specialist_user')
-
+  transaction_specialist = db.relationship('Transaction', back_populates='specialist_transaction')
   def to_dict(self):
      return {
          'id': self.id,

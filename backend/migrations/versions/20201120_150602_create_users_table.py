@@ -27,6 +27,9 @@ def upgrade():
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.Column('first_name', sa.String(length=25), nullable=False),
+    sa.Column('last_name', sa.String(length=25), nullable=False),
+    sa.Column('middle_initial', sa.String(length=1), nullable=True),
     sa.Column('phone_number', sa.String(length=10), nullable=False),
     sa.Column('profile_pic', sa.String(length=255), nullable=True),
     sa.Column('address', sa.String(length=255), nullable=True),
@@ -56,10 +59,27 @@ def upgrade():
     sa.ForeignKeyConstraint(['role_id'], ['roles.id'])
     )
 
+    op.create_table('transactions',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('specialist_id', sa.Integer(), nullable=False),
+    sa.Column('price', sa.Double(), nullable=False),
+    sa.Column('service', sa.String(length=255), nullable=False),
+    sa.Column('date', sa.DateTime(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id']),
+    sa.ForeignKeyConstraint(['specialist_id'], ['specialists.id'])
+    )
+
+    # op.create_table(''
+
+    # )
+
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE roles SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE specialists SET SCHEMA {SCHEMA}")
+        op.execute(f"ALTER TABLE transactions SET SCHEMA {SCHEMA}")
     # ### end Alembic commands ###qqqqqqqqq
 
 
@@ -68,4 +88,5 @@ def downgrade():
     op.drop_table('users')
     op.drop_table('roles')
     op.drop_table('specialists')
+    op.drop_table('transactions')
     # ### end Alembic commands ###
