@@ -17,12 +17,14 @@ class Specialist(db.Model):
   role_specialist = db.relationship('Role', back_populates='specialist_role')
   user_specialist = db.relationship('User', back_populates='specialist_user')
   transaction_specialist = db.relationship('Transaction', back_populates='specialist_transaction')
+  booking_specialist = db.relationship('Booking', back_populates='specialist_booking')
+
   def to_dict(self):
      return {
          'id': self.id,
          'user_id': self.user_id,
          'role_id': self.role_id,
-        #  'availability': self.availability,
+        #  'availability': self.availability, // ommited due to having an availability table
          'biography': self.biography,
          'portfolio': self.portfolio
      }

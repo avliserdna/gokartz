@@ -71,6 +71,17 @@ def upgrade():
     sa.ForeignKeyConstraint(['specialist_id'], ['specialists.id'])
     )
 
+    op.create_table('bookings',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('specialist_id', sa.Integer(), nullable=False),
+    sa.Column('appointed_day', sa.Date(), nullable=False),
+    sa.Column('appointed_time', sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id']),
+    sa.ForeignKeyConstraint(['specialist_id'], ['specialists.id'])
+                    )
+
     # op.create_table(''
 
     # )
@@ -80,6 +91,8 @@ def upgrade():
         op.execute(f"ALTER TABLE roles SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE specialists SET SCHEMA {SCHEMA}")
         op.execute(f"ALTER TABLE transactions SET SCHEMA {SCHEMA}")
+        op.execute(f"ALTER TABLE bookings SET SCHEMA {SCHEMA}")
+
     # ### end Alembic commands ###qqqqqqqqq
 
 
@@ -89,4 +102,5 @@ def downgrade():
     op.drop_table('roles')
     op.drop_table('specialists')
     op.drop_table('transactions')
+    op.drop_table('bookings')
     # ### end Alembic commands ###

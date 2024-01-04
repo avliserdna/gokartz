@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .roles import seed_roles, undo_roles
 from .specialists import seed_specialists, undo_specialists
 from .transactions import seed_transactions, undo_transactions
+from .bookings import seed_bookings, undo_bookings
 
 from app.models.db import db, environment, SCHEMA
 
@@ -23,11 +24,13 @@ def seed():
         undo_specialists()
         undo_users()
         undo_roles()
+        undo_bookings()
 
     seed_users()
     seed_roles()
     seed_specialists()
     seed_transactions()
+    seed_bookings()
     # Add other seed functions here
 
 
@@ -38,4 +41,5 @@ def undo():
     undo_specialists()
     undo_transactions()
     undo_users()
+    undo_bookings()
     # Add other undo functions here

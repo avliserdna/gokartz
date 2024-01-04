@@ -4,3 +4,4 @@ from .user import User
 from .role import Role
 from .specialist import Specialist
 from .transaction import Transaction
+from .bookings import Booking
