@@ -18,6 +18,7 @@ class Specialist(db.Model):
   user_specialist = db.relationship('User', back_populates='specialist_user')
   transaction_specialist = db.relationship('Transaction', back_populates='specialist_transaction')
   booking_specialist = db.relationship('Booking', back_populates='specialist_booking')
+  favorite_specialist = db.relationship('Favorite', back_populates="specialist_favorites", cascade='all, delete')
 
   def to_dict(self):
      return {

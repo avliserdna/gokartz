@@ -1,15 +1,18 @@
-from app.models import db, Transaction, environment, SCHEMA
+from app.models import db, Favorite, environment, SCHEMA
 from sqlalchemy.sql import text
-from datetime import datetime
+from datetime import datetime, date
 from faker import Faker
 from faker.providers import date_time
 
 fake = Faker()
 fake.add_provider(date_time)
+now = datetime.now()
+fake_time = now.strftime("%H:%M:%S")
 # Adds a demo user, you can add other users here if you want
-def seed_transactions():
-    demo = Transaction(
-      user_id=1, specialist_id=1, price=32.14, service=fake.text(), date=datetime.now())
+def seed_favorites():
+    demo = Favorite(
+        user_id=2, specialist_id=1
+    )
     db.session.add(demo)
     db.session.commit()
 
@@ -20,10 +23,10 @@ def seed_transactions():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_transactions():
+def undo_favorites():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.transactions RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.favorites RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM transactions"))
+        db.session.execute(text("DELETE FROM favorites"))
 
     db.session.commit()

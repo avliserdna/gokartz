@@ -9,7 +9,10 @@ fake = Faker()
 def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', first_name=fake.first_name(), last_name=fake.last_name(), profile_pic='image', address="46 Arrowhead Dr.Waterford, MI 48329", birthday=datetime.datetime(2004, 5, 31), phone_number="8309855822")
+    sample = User(
+        username='Missy', email='Missy@gokartz.io', password='missymoomoo', first_name=fake.first_name(), last_name=fake.last_name(), profile_pic='image', address="8929 Connelly Ville, North Winfred, ND 66437-9853", birthday=datetime.datetime(1993, 7, 23), phone_number="6052159380")
     db.session.add(demo)
+    db.session.add(sample)
     db.session.commit()
 
 
