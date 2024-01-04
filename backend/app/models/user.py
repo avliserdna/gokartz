@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
   transaction_user = db.relationship('Transaction', back_populates="user_transaction", cascade='all, delete')
   booking_user = db.relationship('Booking', back_populates="user_booking", cascade='all, delete')
   favorite_user = db.relationship('Favorite', back_populates="user_favorites", cascade='all, delete')
-
+  message_user = db.relationship('Message', back_populates="user_message", cascade='all, delete')
   @property
   def password(self):
       return self.hashed_password

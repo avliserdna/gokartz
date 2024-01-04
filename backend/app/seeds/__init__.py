@@ -5,6 +5,7 @@ from .specialists import seed_specialists, undo_specialists
 from .transactions import seed_transactions, undo_transactions
 from .bookings import seed_bookings, undo_bookings
 from .favorites import seed_favorites, undo_favorites
+from .messages import seed_messages, undo_messages
 
 from app.models.db import db, environment, SCHEMA
 
@@ -27,6 +28,8 @@ def seed():
         undo_roles()
         undo_bookings()
         undo_favorites()
+        undo_messages()
+
 
     seed_users()
     seed_roles()
@@ -34,6 +37,7 @@ def seed():
     seed_transactions()
     seed_bookings()
     seed_favorites()
+    seed_messages()
     # Add other seed functions here
 
 
@@ -46,4 +50,5 @@ def undo():
     undo_users()
     undo_bookings()
     undo_favorites()
+    undo_messages()
     # Add other undo functions here

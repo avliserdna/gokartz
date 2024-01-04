@@ -91,6 +91,14 @@ def upgrade():
     sa.ForeignKeyConstraint(['specialist_id'], ['specialists.id'])
                     )
 
+    op.create_table('messages',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('sender_id', sa.Integer(), nullable=False),
+    sa.Column('message', sa.String(length=255), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['sender_id'], ['users.id']),
+                    )
+
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE roles SET SCHEMA {SCHEMA};")
@@ -98,6 +106,8 @@ def upgrade():
         op.execute(f"ALTER TABLE transactions SET SCHEMA {SCHEMA}")
         op.execute(f"ALTER TABLE bookings SET SCHEMA {SCHEMA}")
         op.execute(f"ALTER TABLE favorites SET SCHEMA {SCHEMA}")
+        op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA}")
+
 
     # ### end Alembic commands ###qqqqqqqqq
 
@@ -110,4 +120,6 @@ def downgrade():
     op.drop_table('transactions')
     op.drop_table('bookings')
     op.drop_table('favorites')
+    op.drop_table('messages')
+
     # ### end Alembic commands ###
