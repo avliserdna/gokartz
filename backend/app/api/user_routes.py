@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask import Blueprint, jsonify, request
+from flask_login import login_required, current_user
+from app.models import User, db
 
 user_routes = Blueprint('users', __name__)
 
@@ -23,3 +23,23 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+# Edit user info NEEDS PROPER AUTH, may reconsider to move to auth routes
+@user_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_user(id):
+    form = request.json
+    edited_user = User(id = id, **form)
+    db.session.add(edited_user)
+    db.session.commit()
+
+    return edited_user.to_dict()
+
+@user_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    # May need to log out user here
+    return {"message": "user succesfully deleted"}
