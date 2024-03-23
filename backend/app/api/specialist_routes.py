@@ -24,7 +24,13 @@ def add_specialist():
   db.session.commit()
   return new_specialist.to_dict()
 
-@specialist_routes.route('/<int:id>', methods=["PUT"])
+@specialist_routes.route('/<int:id>', methods=["PATCH"])
 @login_required
 def edit_specialist(id):
   form = SpecialistForm()
+  specialist = Specialist.query.get(id)
+  specialist.biography = form.data["biography"]
+  specialist.portfolio = form.data["portfolio"]
+
+  db.sessiom.commit()
+  return specialist.to_dict()
