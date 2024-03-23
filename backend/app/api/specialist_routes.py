@@ -34,3 +34,13 @@ def edit_specialist(id):
 
   db.sessiom.commit()
   return specialist.to_dict()
+
+@specialist_routes.route('/<int:id>', methods=["DELETE"])
+@login_required
+def delete_specialist(id):
+  specialist = Specialist.query.get(id)
+
+  db.session.delete(specialist)
+  db.session.commit()
+
+  return {"message": "deleted successfully"}
