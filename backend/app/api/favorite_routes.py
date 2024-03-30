@@ -13,3 +13,12 @@ def favorites():
   """
   favorites = Favorite.query.all()
   return {'favorites': [favorite.to_dict() for favorite in favorites]}
+
+@favorite_routes.route('/<int:id>')
+@login_required
+def favorites(id):
+  """
+    Query for a favorite by id and returns that favorite in a dictionary
+  """
+  favorite = Favorite.query.get(id)
+  return favorite.to_dict()
