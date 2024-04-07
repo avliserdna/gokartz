@@ -45,3 +45,13 @@ def updated_favorite(id):
    db.session.commit()
 
    return favorite.to_dict()
+
+@favorite_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_favorite(id):
+   favorite = Favorite.query.get(id)
+
+   db.session.delete(favorite)
+   db.session.commit()
+
+   return {"message": "deleted successfully"}
