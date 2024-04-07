@@ -22,3 +22,13 @@ def favorites(id):
   """
   favorite = Favorite.query.get(id)
   return favorite.to_dict()
+
+@favorite_routes.route('/')
+@login_required
+def post_favorites():
+    favorites_data = request.json
+    new_favorite = Favorite(**favorites_data, user_id = current_user.id)
+    db.session.add(new_favorite)
+    db.session.commit()
+
+    return new_favorite.to_dict()
