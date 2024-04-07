@@ -32,3 +32,16 @@ def post_favorites():
     db.session.commit()
 
     return new_favorite.to_dict()
+
+@favorite_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def updated_favorite(id):
+   form = FavoriteForm()
+   favorite = Favorite.query.get(id)
+
+   favorite.user_id = form.data['user_id']
+   favorite.specialist_id = form.data['specialist_id']
+
+   db.session.commit()
+
+   return favorite.to_dict()
